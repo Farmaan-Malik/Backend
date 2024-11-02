@@ -7,7 +7,7 @@ export const getProducts = async (req,res)=>{
         const products = await Product.find({})
         res.status(201).json({success: true, data: products} )
     }catch(error){
-        res.status(500).json({success: false, message: "Falji goyi"})
+        res.status(500).json({success: false, message: "Server Error"})
     }
 }
 
@@ -27,11 +27,14 @@ export const createProduct =  async (req,res)=>{
 
 export const deleteProduct = async (req,res)=>{
     const {id} = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({success: false, message: "Invalid Id"})
+    }
     try { 
         await Product.findByIdAndDelete(id)
         res.status(201).json({success: true, message: "Product deleted"})
     }catch(error){
-        res.status(401).json({success:false,message:"Product not found"})
+        res.status(500).json({success:false,message:"Server Error"})
     }
 }
 
