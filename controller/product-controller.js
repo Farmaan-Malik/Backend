@@ -3,6 +3,7 @@ import { Product } from "../models/product-model.js";
 
 
 export const getProducts = async (req,res)=>{
+    console.log("hit")
     try{
         const products = await Product.find({})
         res.status(201).json({success: true, data: products} )
