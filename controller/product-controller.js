@@ -20,7 +20,8 @@ export const createProduct =  async (req,res)=>{
     const newProduct = new Product(product)
     try{
         await newProduct.save();
-        res.status(201).json({success: true, data: newProduct})
+        setTimeout(()=>{res.status(201).json({success: true, data: newProduct})
+    },1000)
     } catch(error){
         res.status(500).json({success: false, message : "Server error"})
     }
